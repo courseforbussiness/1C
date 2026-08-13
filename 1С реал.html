@@ -1,0 +1,3407 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1С — это просто: Полный курс для бухгалтера с нуля до профи</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== ПЕРЕМЕННЫЕ (из 1C.html) ===== */
+        :root {
+            --primary: #d63031;
+            --primary-dark: #b52a2a;
+            --primary-soft: #fde8e8;
+            --primary-light: #fff5f5;
+            --ink: #1a1a2e;
+            --text: #2d3436;
+            --muted: #555;
+            --white: #ffffff;
+            --green: #1FA43C;
+            --green-soft: #E6F6EA;
+            --red: #E53935;
+            --red-soft: #FFEBEE;
+            --radius: 18px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, .08);
+            --shadow-hover: 0 16px 40px rgba(0, 0, 0, .15);
+            --yellow: #f5c842;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            color: var(--text);
+            background: var(--white);
+            line-height: 1.65;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3 { font-family: 'Inter', sans-serif; color: var(--ink); line-height: 1.25; font-weight: 800; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        a { text-decoration: none; color: inherit; transition: .25s; }
+        ul { list-style: none; }
+
+        /* ===== КНОПКИ (адаптированы под стиль 1C) ===== */
+        .btn {
+            display: inline-block;
+            font-weight: 700;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: .25s;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            padding: 14px 32px;
+            font-size: 1rem;
+            box-shadow: 0 8px 22px rgba(214, 48, 49, .35);
+        }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-3px); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+        .btn-dark {
+            background: var(--ink);
+            color: var(--white);
+            padding: 16px 26px;
+            font-size: 1rem;
+            border-radius: 60px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .25s;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-dark:hover { background: var(--primary); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        .btn-dark svg { width: 32px; height: 32px; flex-shrink: 0; }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--ink);
+            padding: 10px 22px;
+            font-size: .9rem;
+            font-weight: 700;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: .25s;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-outline:hover { background: var(--primary-soft); transform: translateY(-2px); }
+
+        .btn-red {
+            background: var(--red);
+            color: var(--white);
+            padding: 12px 24px;
+            font-size: .95rem;
+            border: none;
+            border-radius: 60px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .25s;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-red:hover { background: #c62828; transform: translateY(-2px); }
+
+        .btn-green {
+            background: var(--green);
+            color: var(--white);
+            padding: 12px 24px;
+            font-size: .95rem;
+            border: none;
+            border-radius: 60px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .25s;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-green:hover { background: #1a8a32; transform: translateY(-2px); }
+        .btn-green:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+        .btn svg.btn-icon,
+        .btn-outline svg.btn-icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.125em;
+            stroke-width: 2.5;
+        }
+        .btn-primary svg.btn-icon { stroke: var(--white); }
+        .btn-outline svg.btn-icon { stroke: var(--ink); }
+        .btn-green svg.btn-icon { stroke: var(--white); }
+        .btn-red svg.btn-icon { stroke: var(--white); }
+
+        /* ===== КНОПКА ПОМОЩИ С ОПЛАТОЙ ===== */
+        .btn-help {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: .25s;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: var(--primary-soft);
+        }
+
+        .btn-help:hover {
+            color: var(--primary);
+            background: var(--primary-soft);
+            transform: translateY(-2px);
+        }
+
+        .btn-help svg {
+            stroke: currentColor;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px) }
+            to { opacity: 1; transform: none }
+        }
+
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* ===== ЛЕНДИНГ (стилизован под 1C) ===== */
+        .hero {
+            position: relative;
+            padding: 90px 0 80px;
+            text-align: center;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            background: url('https://astralnw.ru/upload/iblock/7c0/4qjng2oe5su3uzpfim6jaoajznqm5hpr.png') center/cover no-repeat;
+            opacity: 0.12;
+        }
+        .hero .container { position: relative; z-index: 1; }
+        .hero .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-soft);
+            color: var(--primary-dark);
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: .85rem;
+            letter-spacing: .4px;
+            animation: fadeUp .6s ease both;
+        }
+        .hero .badge svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            font-weight: 900;
+            margin: 22px 0 16px;
+            animation: fadeUp .6s .1s ease both;
+            color: var(--ink);
+            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+        }
+        .hero .subtitle {
+            font-size: 1.15rem;
+            color: var(--text);
+            max-width: 660px;
+            margin: 0 auto;
+            animation: fadeUp .6s .2s ease both;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 8px 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(2px);
+        }
+        .hero-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            max-width: 860px;
+            margin: 38px auto;
+            text-align: left;
+            animation: fadeUp .6s .3s ease both;
+        }
+        .hero-features li {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            border-left: 5px solid var(--primary);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 16px 20px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+        .cta-box {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(6px);
+            border: 3px solid var(--yellow);
+            border-radius: 24px;
+            box-shadow: var(--shadow-hover);
+            padding: 36px 30px;
+            max-width: 560px;
+            margin: 0 auto;
+            animation: fadeUp .6s .4s ease both;
+        }
+        .cta-title {
+            font-weight: 800;
+            color: var(--ink);
+            font-size: 1.2rem;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .cta-title svg { color: var(--primary); }
+        .price-line {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+        .price-old {
+            color: var(--red);
+            text-decoration: line-through;
+            font-weight: 700;
+            font-size: 1.3rem;
+            opacity: .85;
+        }
+        .price-new {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 3rem;
+            color: var(--primary);
+        }
+        .why { padding: 80px 0; background: var(--white); }
+        .why h2 {
+            text-align: center;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-top: 6px solid var(--primary);
+            padding: 28px 24px;
+            font-weight: 600;
+            color: var(--ink);
+            transition: .25s;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .card svg.card-check {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            color: var(--primary);
+            stroke-width: 2.5;
+            margin-top: 2px;
+        }
+        .card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+
+        /* ===== СТРАНИЦА ОПЛАТЫ ===== */
+        .payment-page { padding: 80px 0; background: var(--primary-light); }
+        .pay-card {
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: var(--shadow-hover);
+            padding: 44px 36px;
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .pay-card h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            margin-bottom: 18px;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .pay-card p { margin-bottom: 10px; color: var(--text); }
+        .pay-card .sum { font-size: 1.2rem; color: var(--ink); }
+        .pay-card .sum strong { color: var(--primary); font-size: 1.4rem; }
+        .pay-card .hint { color: var(--muted); font-size: .95rem; margin-bottom: 28px; }
+        .pay-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 26px;
+        }
+        .back {
+            display: inline-block;
+            font-weight: 700;
+            color: var(--muted);
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+        }
+        .back:hover { color: var(--ink); border-color: var(--primary); }
+
+        /* ===== БЛОК ДЛЯ ЧЕКА В TELEGRAM ===== */
+        .telegram-check-block {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 24px;
+            padding: 32px;
+            margin-top: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(214, 48, 49, 0.1);
+        }
+        .telegram-check-block .info-message {
+            background: var(--primary-soft);
+            padding: 16px 20px;
+            border-radius: 14px;
+            border-left: 5px solid var(--primary);
+            margin-bottom: 20px;
+        }
+        .telegram-check-block .info-message p { margin-bottom: 0; font-weight: 500; color: var(--ink); }
+        .telegram-check-block .btn-wrap { display: flex; justify-content: center; }
+        .telegram-check-block .btn-telegram {
+            display: inline-block;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 60px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: .25s;
+            box-shadow: 0 8px 22px rgba(214, 48, 49, .35);
+        }
+        .telegram-check-block .btn-telegram:hover { background: var(--primary-dark); transform: translateY(-3px); }
+        .telegram-check-block .hint-text { margin-top: 16px; text-align: center; font-size: 0.9rem; color: var(--muted); }
+
+        /* ===== ПОДДЕРЖКА ===== */
+        .support-page { padding: 80px 0; background: var(--primary-light); }
+        .support-card {
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: var(--shadow-hover);
+            padding: 44px 36px;
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .support-card h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            margin-bottom: 18px;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .support-card textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 14px;
+            border: 2px solid #eee;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+            margin-bottom: 16px;
+            outline: none;
+            transition: .25s;
+        }
+        .support-card textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(214, 48, 49, .15); }
+        .support-success {
+            background: var(--green-soft);
+            color: var(--green);
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-top: 16px;
+            display: none;
+            font-weight: 600;
+        }
+
+        /* ===== СТРАНИЦЫ БЛОКОВ ===== */
+        .block-page {
+            min-height: 100vh;
+            padding: 30px 0 80px;
+            background:
+                linear-gradient(rgba(180, 180, 195, 0.12) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(180, 180, 195, 0.12) 1px, transparent 1px),
+                linear-gradient(160deg, var(--primary-light) 0%, #FFFFFF 45%, #F0F0F8 100%);
+            background-size: 32px 32px, 32px 32px, 100% 100%;
+            background-attachment: fixed;
+        }
+        .block-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 32px;
+            border: 1px solid rgba(214, 48, 49, 0.2);
+        }
+        .block-header .left { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .block-header .back-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: .25s;
+        }
+        .block-header .back-btn:hover { color: var(--ink); }
+        .block-header .block-number {
+            font-weight: 700;
+            color: var(--ink);
+            background: var(--primary-soft);
+            padding: 4px 16px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
+        }
+        .block-header .progress-wrap { display: flex; align-items: center; gap: 12px; }
+        .block-header .progress-bar {
+            width: 120px;
+            height: 6px;
+            background: #eee;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .block-header .progress-bar .fill {
+            height: 100%;
+            width: 0%;
+            background: var(--primary);
+            border-radius: 999px;
+            transition: width .5s;
+        }
+        .block-header .progress-text { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+        .block-header .lock-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--muted);
+        }
+        .block-header .lock-status .locked { color: var(--red); }
+        .block-header .lock-status .unlocked { color: var(--green); }
+        .block-title-wrap { margin-bottom: 36px; }
+        .block-title-wrap h1 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            color: var(--ink);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .block-title-wrap .desc { font-size: 1.1rem; color: var(--muted); max-width: 700px; }
+        .goals {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .goal-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            border-radius: 16px;
+            padding: 24px 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(214, 48, 49, 0.15);
+            transition: all .3s ease;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+        .goal-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .4s ease;
+        }
+        .goal-card:hover::before { transform: scaleX(1); }
+        .goal-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+        .goal-card .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+            color: var(--ink);
+        }
+        .goal-card .icon svg {
+            width: 36px;
+            height: 36px;
+            stroke: var(--primary);
+            stroke-width: 2;
+            fill: none;
+        }
+        .goal-card h3 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+            font-family: 'Inter', sans-serif;
+            color: var(--ink);
+        }
+        .goal-card p { font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
+        .goal-card .highlight { color: var(--primary-dark); font-weight: 700; }
+        .content-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(6px);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            padding: 36px 32px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(214, 48, 49, 0.1);
+        }
+        .content-card .pdf-btn-wrap { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
+
+        .test-block {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(6px);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            padding: 32px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(214, 48, 49, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .test-block .test-info { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .test-block .test-info .status {
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 4px 16px;
+            border-radius: 999px;
+        }
+        .test-block .test-info .status.pending { background: var(--primary-soft); color: var(--primary-dark); }
+        .test-block .test-info .status.passed { background: var(--green-soft); color: var(--green); }
+        .test-block .test-info .status.failed { background: var(--red-soft); color: var(--red); }
+        .next-block {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(6px);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            padding: 32px;
+            border: 1px solid rgba(214, 48, 49, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .next-block .info { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .next-block .info .lock-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            color: var(--muted);
+        }
+        .next-block .info .lock-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--muted);
+            stroke-width: 2;
+            fill: none;
+        }
+        .next-block .info .hint { font-size: 0.9rem; color: var(--muted); }
+
+        /* ===== СТРАНИЦА ТЕСТА ===== */
+        .test-page {
+            min-height: 100vh;
+            padding: 40px 0;
+            background:
+                linear-gradient(rgba(180, 180, 195, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(180, 180, 195, 0.08) 1px, transparent 1px),
+                linear-gradient(160deg, var(--primary-light) 0%, #FFFFFF 50%, #F0F0F8 100%);
+            background-size: 32px 32px, 32px 32px, 100% 100%;
+            background-attachment: fixed;
+        }
+        .test-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            box-shadow: var(--shadow-hover);
+            padding: 44px 40px;
+            max-width: 780px;
+            margin: 0 auto;
+            border: 1px solid rgba(214, 48, 49, 0.15);
+        }
+        .test-card h1 {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .test-card .test-desc { color: var(--muted); margin-bottom: 32px; }
+        .test-card .question {
+            margin-bottom: 28px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #eee;
+        }
+        .test-card .question:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .test-card .question .q-text { font-weight: 700; font-size: 1.05rem; margin-bottom: 10px; color: var(--ink); }
+        .test-card .question .options { display: flex; flex-direction: column; gap: 8px; }
+        .test-card .question .options label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            border: 2px solid #eee;
+            cursor: pointer;
+            transition: .2s;
+            font-weight: 500;
+        }
+        .test-card .question .options label:hover { border-color: var(--primary); background: var(--primary-soft); }
+        .test-card .question .options input[type="radio"] {
+            accent-color: var(--primary);
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+        .test-card .question .options label.correct { border-color: var(--green); background: var(--green-soft); }
+        .test-card .question .options label.wrong { border-color: var(--red); background: var(--red-soft); }
+        .test-card .question .options label.disabled { pointer-events: none; opacity: 0.7; }
+        .test-card .result {
+            margin-top: 28px;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: none;
+        }
+        .test-card .result.passed { display: block; background: var(--green-soft); color: var(--green); }
+        .test-card .result.failed { display: block; background: var(--red-soft); color: var(--red); }
+        .test-card .btn-wrap { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 24px; }
+
+        /* ===== ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ ===== */
+        .scroll-wrapper {
+            position: relative;
+            overflow: hidden;
+            margin: 0 -10px;
+            padding: 0 10px;
+        }
+
+        .scroll-container {
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 10px 0;
+            cursor: grab;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scroll-track {
+            display: flex;
+            gap: 24px;
+            width: max-content;
+            padding: 0 10px;
+        }
+
+        .scroll-slide {
+            flex: 0 0 calc(33.333% - 16px);
+            min-width: 280px;
+            max-width: 400px;
+        }
+
+        .scroll-slide .block-card {
+            background: var(--white);
+            border: 1px solid #EEE;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: .25s;
+            height: 100%;
+        }
+
+        .scroll-slide .block-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .scroll-slide .block-card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+            font-family: 'Inter', sans-serif;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scroll-slide .block-card p {
+            margin-bottom: 20px;
+            font-size: .95rem;
+            color: var(--text);
+            flex: 1;
+        }
+
+        .scroll-slide .block-card .btn {
+            margin-top: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .scroll-slide .gift-card-scroll {
+            border: 3px solid var(--yellow);
+            background: var(--primary-light);
+            align-items: center;
+            text-align: center;
+        }
+
+        .scroll-slide .gift-card-scroll h3 {
+            justify-content: center;
+        }
+
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 2px solid var(--primary-soft);
+            box-shadow: var(--shadow);
+            font-size: 1.6rem;
+            line-height: 1;
+            color: var(--ink);
+            cursor: pointer;
+            transition: .25s;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+            padding: 0;
+        }
+
+        .scroll-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .scroll-btn.prev {
+            left: 0;
+        }
+
+        .scroll-btn.next {
+            right: 0;
+        }
+
+        .scroll-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .scroll-dots .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #D1D5DB;
+            cursor: pointer;
+            transition: .25s;
+            border: none;
+        }
+
+        .scroll-dots .dot.active {
+            background: var(--primary);
+            width: 28px;
+            border-radius: 5px;
+        }
+
+        /* ===== МОДАЛЬНОЕ ОКНО ПОМОЩИ С ОПЛАТОЙ ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-window {
+            background: var(--white);
+            border-radius: 24px;
+            max-width: 540px;
+            width: 100%;
+            padding: 40px 36px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary-soft);
+            color: var(--muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: .25s;
+            padding: 0;
+        }
+
+        .modal-close:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .modal-close svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .modal-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: #FFF3E0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .modal-icon svg {
+            width: 32px;
+            height: 32px;
+            color: #F57C00;
+        }
+
+        .modal-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-align: center;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+
+        .modal-subtitle {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+
+        .modal-divider {
+            height: 1px;
+            background: #EEEEEE;
+            margin: 20px 0;
+        }
+
+        .modal-method {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: var(--primary-light);
+            border-radius: 16px;
+            padding: 16px 20px;
+            border: 1px solid var(--primary-soft);
+        }
+
+        .method-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .method-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .method-content {
+            flex: 1;
+        }
+
+        .method-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .method-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .method-phone {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .method-recipient {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .modal-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 16px;
+            background: #FAFAFA;
+            border-radius: 12px;
+            transition: .25s;
+        }
+
+        .step-item:hover {
+            background: var(--primary-soft);
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.8rem;
+        }
+
+        .step-text {
+            font-size: 0.92rem;
+            color: var(--text);
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 24px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: .25s;
+            border: none;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .modal-btn.primary {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 8px 22px rgba(214, 48, 49, .3);
+        }
+
+        .modal-btn.primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(214, 48, 49, .4);
+        }
+
+        .modal-btn.secondary {
+            background: var(--primary-soft);
+            color: var(--ink);
+        }
+
+        .modal-btn.secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .modal-footer {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #EEEEEE;
+        }
+
+        .modal-footer strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* ============================================================
+           ВЕРХНЯЯ ПАНЕЛЬ (ШАПКА)
+           ============================================================ */
+        .topbar {
+            background: var(--ink);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, .25);
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding: 14px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-right: auto;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .topbar .nav-tab {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: .25s;
+            padding: 4px 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .topbar .nav-tab:hover { color: var(--yellow); }
+        .topbar .nav-tab.active { color: var(--yellow); }
+
+        /* ===== АВАТАР И ВЫПАДАЮЩЕЕ МЕНЮ ===== */
+        .avatar-wrap {
+            position: relative;
+            display: inline-block;
+            flex-shrink: 0;
+            z-index: 60;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            border: 2px solid transparent;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .avatar:hover { border-color: var(--yellow); }
+        .avatar svg { width: 20px; height: 20px; fill: var(--white); }
+
+        .dropdown-menu {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 20px 24px;
+            min-width: 200px;
+            display: none;
+            z-index: 99999;
+            border: 1px solid #f0f0f0;
+            animation: slideDown 0.25s ease;
+        }
+
+        .dropdown-menu.open {
+            display: block !important;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-menu .user-name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--ink);
+        }
+        .dropdown-menu .user-status {
+            font-size: 0.85rem;
+            color: var(--green);
+            background: var(--green-soft);
+            padding: 2px 14px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+        .dropdown-menu .divider {
+            height: 1px;
+            background: #eee;
+            margin: 14px 0;
+        }
+        .dropdown-menu .logout-btn {
+            background: none;
+            border: none;
+            color: var(--red);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            padding: 6px 0;
+            width: 100%;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+        }
+        .dropdown-menu .logout-btn:hover {
+            color: #c62828;
+        }
+
+        /* ===== КАБИНЕТ (ГЛАВНАЯ) ===== */
+        .dash { background: #FAFAF7; padding: 60px 0 80px; }
+        .welcome { font-size: clamp(1.3rem, 3vw, 1.8rem); margin-bottom: 30px; }
+        .panel {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 36px;
+            margin-bottom: 28px;
+        }
+        .panel h2 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            font-family: 'Inter', sans-serif;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .panel p { margin-bottom: 14px; color: var(--text); }
+
+        /* ===== БЛОК "О КУРСЕ" С ОКРУГЛЁННЫМИ КРАЯМИ ===== */
+        .about-block {
+            background: var(--primary-light);
+            border-radius: 24px;
+            padding: 32px 36px;
+            border: 2px solid var(--primary-soft);
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(214, 48, 49, .08);
+        }
+        .about-block p {
+            color: var(--ink);
+            line-height: 1.8;
+        }
+
+        .get-list { display: grid; gap: 14px; }
+        .get-list li {
+            background: var(--white);
+            border-left: 5px solid var(--primary);
+            border-radius: 12px;
+            padding: 16px 22px;
+            font-weight: 600;
+            color: var(--ink);
+            box-shadow: var(--shadow);
+            transition: all .3s ease;
+            animation: fadeUp .5s ease both;
+        }
+        .get-list li:hover {
+            transform: translateX(8px);
+            box-shadow: var(--shadow-hover);
+        }
+        .get-list li:nth-child(1) { animation-delay: 0.1s; }
+        .get-list li:nth-child(2) { animation-delay: 0.2s; }
+        .get-list li:nth-child(3) { animation-delay: 0.3s; }
+        .get-list li:nth-child(4) { animation-delay: 0.4s; }
+        .get-list li:nth-child(5) { animation-delay: 0.5s; }
+        .get-list li:nth-child(6) { animation-delay: 0.6s; }
+        .get-list li:nth-child(7) { animation-delay: 0.7s; }
+
+        .skill-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 26px;
+        }
+        .skill-list li { position: relative; padding-left: 26px; color: var(--text); }
+        .skill-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: .5em;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 3px;
+            transform: rotate(45deg);
+        }
+
+        /* ===== УНИВЕРСАЛЬНЫЙ КЛАСС ДЛЯ SVG ===== */
+        svg.inline-ic {
+            width: 1em;
+            height: 1em;
+            display: inline-block;
+            vertical-align: -0.125em;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+
+        /* ============================================================
+           МОБИЛЬНАЯ АДАПТАЦИЯ
+           ============================================================ */
+        @media (max-width: 860px) {
+            .hero-features,
+            .cards,
+            .pay-buttons,
+            .skill-list,
+            .goals {
+                grid-template-columns: 1fr;
+            }
+
+            .price-new { font-size: 2.4rem; }
+
+            .nav-inner {
+                gap: 12px;
+                padding: 10px 16px;
+                flex-wrap: wrap;
+            }
+
+            .logo {
+                font-size: 1rem;
+                margin-right: auto;
+            }
+
+            .topbar .nav-tab {
+                font-size: 0.85rem;
+                padding: 4px 8px;
+            }
+
+            .avatar {
+                width: 36px;
+                height: 36px;
+            }
+            .avatar svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .dropdown-menu {
+                right: 0;
+                top: calc(100% + 6px);
+                min-width: 180px;
+                padding: 16px 20px;
+                z-index: 99999;
+            }
+
+            .dropdown-menu .user-name {
+                font-size: 1rem;
+            }
+            .dropdown-menu .user-status {
+                font-size: 0.8rem;
+            }
+            .dropdown-menu .logout-btn {
+                font-size: 0.9rem;
+            }
+
+            .dash { padding: 40px 0; }
+            .panel { padding: 24px; }
+            .pay-card,
+            .support-card,
+            .test-card,
+            .content-card {
+                padding: 24px 16px;
+                margin: 0 10px;
+            }
+            .hero { padding: 60px 0 50px; min-height: auto; }
+            .btn-dark svg { width: 24px; height: 24px; }
+
+            .content-card { margin-bottom: 20px; }
+            .test-block { margin-top: 10px; }
+
+            .test-block {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                gap: 8px 16px;
+                padding: 20px;
+            }
+
+            .test-block .test-info {
+                flex: 1 1 100%;
+                gap: 8px;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .test-block .test-info span:first-child {
+                font-size: 1.2rem;
+            }
+
+            .test-block .test-info .status {
+                font-size: 0.75rem;
+                padding: 2px 12px;
+                white-space: nowrap;
+            }
+
+            .test-block .test-info span:not(.status):not(:first-child) {
+                font-size: 0.95rem;
+            }
+
+            .test-block .btn {
+                font-size: 0.85rem;
+                padding: 10px 20px;
+                margin-top: 2px;
+                white-space: nowrap;
+            }
+
+            .test-block .btn svg.btn-icon {
+                width: 0.9em;
+                height: 0.9em;
+            }
+
+            .block-header {
+                flex-direction: row;
+                flex-wrap: wrap;
+                padding: 12px 16px;
+                gap: 8px;
+                align-items: center;
+            }
+
+            .block-header .left {
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .block-header .back-btn {
+                font-size: 0.8rem;
+            }
+
+            .block-header .block-number {
+                font-size: 0.7rem;
+                padding: 2px 10px;
+            }
+
+            .block-header .progress-wrap {
+                gap: 6px;
+                flex-wrap: wrap;
+            }
+
+            .block-header .progress-bar {
+                width: 80px;
+            }
+
+            .block-header .progress-text {
+                font-size: 0.7rem;
+            }
+
+            .block-header .lock-status {
+                font-size: 0.7rem;
+                gap: 4px;
+            }
+
+            .next-block {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px 12px;
+                padding: 20px;
+            }
+
+            .next-block .info {
+                gap: 6px;
+                flex-wrap: wrap;
+            }
+
+            .next-block .info .lock-icon {
+                width: 24px;
+                height: 24px;
+            }
+            .next-block .info .lock-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .next-block .info .hint {
+                font-size: 0.8rem;
+            }
+
+            .next-block .btn {
+                font-size: 0.85rem;
+                padding: 10px 18px;
+            }
+
+            .next-block .btn svg.btn-icon {
+                width: 0.9em;
+                height: 0.9em;
+            }
+
+            .block-title-wrap h1 {
+                font-size: 1.4rem;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            .block-title-wrap h1 svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            .block-title-wrap .desc {
+                font-size: 0.95rem;
+            }
+
+            .goal-card {
+                padding: 18px 16px;
+            }
+
+            .goal-card .icon {
+                font-size: 1.5rem;
+                margin-bottom: 6px;
+            }
+            .goal-card .icon svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            .goal-card h3 {
+                font-size: 0.95rem;
+            }
+
+            .goal-card p {
+                font-size: 0.85rem;
+            }
+
+            .about-block {
+                padding: 20px 18px;
+            }
+
+            /* Скролл адаптив */
+            .scroll-slide {
+                flex: 0 0 calc(50% - 12px);
+                min-width: 240px;
+            }
+
+            .scroll-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1.2rem;
+            }
+
+            /* Модальное окно адаптив */
+            .modal-window {
+                padding: 28px 20px;
+                margin: 10px;
+                border-radius: 20px;
+            }
+
+            .modal-title {
+                font-size: 1.2rem;
+            }
+
+            .modal-method {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 16px;
+            }
+
+            .method-details {
+                align-items: center;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .modal-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 40px 0 30px; }
+            .cta-box { padding: 24px 16px; }
+            .price-new { font-size: 2rem; }
+            .topbar .nav-tab { font-size: 0.8rem; padding: 3px 6px; }
+            .hero-features li { padding: 12px 16px; font-size: 0.9rem; }
+            .hero .subtitle { font-size: 1rem; padding: 6px 14px; }
+            .block-page { padding: 16px 0 60px; }
+            .block-title-wrap h1 { font-size: 1.2rem; }
+            .block-header { padding: 10px 12px; }
+            .block-header .back-btn { font-size: 0.7rem; }
+            .block-header .block-number { font-size: 0.6rem; padding: 2px 8px; }
+            .block-header .progress-bar { width: 60px; }
+            .block-header .progress-text { font-size: 0.6rem; }
+            .block-header .lock-status { font-size: 0.6rem; }
+            .test-card .question .options label { padding: 8px 12px; font-size: 0.95rem; }
+            .test-card { padding: 20px 16px; }
+
+            .dropdown-menu {
+                right: 0;
+                top: calc(100% + 4px);
+                min-width: 160px;
+                padding: 14px 16px;
+                z-index: 99999;
+            }
+
+            .dropdown-menu .user-name {
+                font-size: 0.9rem;
+            }
+            .dropdown-menu .user-status {
+                font-size: 0.75rem;
+                padding: 2px 10px;
+            }
+            .dropdown-menu .logout-btn {
+                font-size: 0.85rem;
+            }
+
+            .test-block {
+                padding: 16px;
+                gap: 6px 12px;
+                margin-top: 8px;
+            }
+
+            .test-block .test-info span:not(.status):not(:first-child) {
+                font-size: 0.85rem;
+            }
+
+            .test-block .test-info .status {
+                font-size: 0.65rem;
+                padding: 2px 8px;
+            }
+
+            .test-block .btn {
+                font-size: 0.75rem;
+                padding: 8px 14px;
+            }
+
+            .next-block {
+                padding: 16px;
+            }
+
+            .next-block .info .lock-icon {
+                width: 20px;
+                height: 20px;
+            }
+            .next-block .info .lock-icon svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .next-block .info .hint {
+                font-size: 0.7rem;
+            }
+
+            .next-block .btn {
+                font-size: 0.75rem;
+                padding: 8px 14px;
+            }
+
+            .content-card {
+                padding: 16px;
+                margin-bottom: 16px;
+            }
+
+            .about-block {
+                padding: 16px 14px;
+            }
+            .about-block p {
+                font-size: 0.95rem;
+            }
+
+            /* Скролл адаптив */
+            .scroll-slide {
+                flex: 0 0 calc(80% - 10px);
+                min-width: 200px;
+            }
+
+            .scroll-slide .block-card {
+                padding: 20px;
+            }
+
+            .scroll-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 1rem;
+            }
+
+            .scroll-dots .dot {
+                width: 8px;
+                height: 8px;
+            }
+
+            .scroll-dots .dot.active {
+                width: 20px;
+            }
+
+            /* Модальное окно адаптив */
+            .modal-window {
+                padding: 24px 16px;
+                margin: 10px;
+                border-radius: 16px;
+            }
+
+            .modal-title {
+                font-size: 1.1rem;
+            }
+
+            .modal-icon {
+                width: 48px;
+                height: 48px;
+            }
+
+            .modal-icon svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .modal-method {
+                padding: 12px 14px;
+                gap: 10px;
+            }
+
+            .method-phone {
+                font-size: 0.95rem;
+            }
+
+            .step-item {
+                padding: 8px 12px;
+                gap: 10px;
+            }
+
+            .step-number {
+                width: 24px;
+                height: 24px;
+                font-size: 0.7rem;
+            }
+
+            .step-text {
+                font-size: 0.85rem;
+            }
+
+            .modal-btn {
+                padding: 12px 16px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-inner {
+                flex-wrap: wrap;
+                gap: 8px;
+                padding: 8px 12px;
+                justify-content: center;
+            }
+
+            .logo {
+                font-size: 0.9rem;
+                margin-right: 0;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .topbar .nav-tab {
+                font-size: 0.8rem;
+                padding: 3px 6px;
+            }
+
+            .avatar {
+                width: 32px;
+                height: 32px;
+            }
+            .avatar svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .dropdown-menu {
+                right: 0;
+                top: calc(100% + 4px);
+                min-width: 150px;
+                padding: 12px 14px;
+                z-index: 99999;
+            }
+
+            .dropdown-menu .user-name {
+                font-size: 0.85rem;
+            }
+            .dropdown-menu .user-status {
+                font-size: 0.7rem;
+                padding: 2px 8px;
+            }
+            .dropdown-menu .logout-btn {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================================================================
+    СТРАНИЦА 1: ЛЕНДИНГ (АВТОРИЗАЦИЯ)
+    ================================================================ -->
+    <div id="landingPage" class="page active">
+        <header class="hero">
+            <div class="hero-bg"></div>
+            <div class="container">
+                <span class="badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2v4M12 22v-4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M22 12h-4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    Полный курс для начинающих
+                </span>
+                <h1>1С — это просто: Полный курс для бухгалтера с нуля до профи</h1>
+                <p class="subtitle">Освойте 1С:Предприятие 8.3 за один интенсивный курс. Работа в Конфигураторе, создание отчетов, ведение учета и первые шаги в профессии.</p>
+                <ul class="hero-features">
+                    <li>Научитесь работать в 1С с нуля без страха и ошибок</li>
+                    <li>Создадите собственную конфигурацию и отчеты</li>
+                    <li>Поймёте бухгалтерский и налоговый учет</li>
+                    <li>Станете востребованным специалистом с сертификатом</li>
+                </ul>
+                <div class="cta-box">
+                    <p class="cta-title">
+                        <svg class="inline-ic" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                        Старт карьеры в 1С — сейчас!
+                    </p>
+                    <div class="price-line">
+                        <span class="price-old">1199 ₽</span>
+                        <span class="price-new">799 ₽</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="showPaymentPage()">Перейти к оплате</button>
+                </div>
+            </div>
+        </header>
+
+        <section class="why">
+            <div class="container">
+                <h2>
+                    <svg class="inline-ic" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+                    Почему этот курс изменит вашу карьеру?
+                </h2>
+                <div class="cards">
+                    <div class="card">
+                        <svg class="card-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span><strong>Системные знания</strong> — перестанете бояться 1С и научитесь решать любые задачи: от ввода документов до сложных отчетов.</span>
+                    </div>
+                    <div class="card">
+                        <svg class="card-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span><strong>Практика на реальных задачах</strong> — отработаете создание конфигураций, запросы и интеграцию с внешними системами.</span>
+                    </div>
+                    <div class="card">
+                        <svg class="card-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span><strong>Удостоверение о повышении квалификации</strong> — подтвердите свои навыки и станьте заметнее для работодателей.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="background:var(--ink); padding:70px 0; text-align:center;">
+            <div class="container">
+                <h2 style="color:var(--white); font-size:clamp(1.4rem,3vw,2rem); margin-bottom:28px; display:flex; align-items:center; justify-content:center; gap:12px;">
+                    <svg class="inline-ic" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    Войдите в курс
+                </h2>
+                <form id="loginForm" style="max-width:400px; margin:0 auto; display:flex; flex-direction:column; gap:14px;">
+                    <input type="text" id="loginInput" placeholder="Логин" required style="padding:14px 20px; border-radius:60px; border:2px solid #444; background:rgba(255,255,255,0.08); color:var(--white); font-family:'Inter',sans-serif; font-size:1rem; outline:none; transition:.25s;" />
+                    <input type="password" id="passwordInput" placeholder="Пароль" required style="padding:14px 20px; border-radius:60px; border:2px solid #444; background:rgba(255,255,255,0.08); color:var(--white); font-family:'Inter',sans-serif; font-size:1rem; outline:none; transition:.25s;" />
+                    <button type="submit" class="btn btn-primary" style="width:100%;">Войти</button>
+                    <div id="loginError" style="color:var(--red); font-size:0.9rem; min-height:24px;"></div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- ================================================================
+    СТРАНИЦА 2: ОПЛАТА
+    ================================================================ -->
+    <div id="paymentPage" class="page">
+        <section class="payment-page">
+            <div class="container">
+                <div class="pay-card">
+                    <h1>
+                        <svg class="inline-ic" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                        Оплата курса
+                    </h1>
+                    <p>Вы выбрали курс «1С — это просто: Полный курс для бухгалтера»</p>
+                    <p class="sum">Стоимость: <strong>799 ₽</strong></p>
+                    <p class="hint">Выберите удобный способ оплаты. После перевода нажмите «Вернуться на главную» и войдите в курс.</p>
+
+                    <div class="pay-buttons">
+                        <a class="btn btn-dark" href="https://vk.ru/away.php?to=https%3A%2F%2Fwww.sberbank.com%2Fsms%2Fpbpn%3FrequisiteNumber%3D79146027515&utf=1" target="_blank">
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="100" height="100" rx="16" fill="#2D9A3E" />
+                                <path d="M30 35L70 35L70 45L30 45L30 35Z" fill="white" />
+                                <path d="M30 50L55 50L55 60L30 60L30 50Z" fill="white" />
+                                <path d="M30 65L45 65L45 75L30 75L30 65Z" fill="white" />
+                                <circle cx="78" cy="50" r="12" fill="white" />
+                                <path d="M74 50L78 54L86 46" stroke="#2D9A3E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Сбер
+                        </a>
+                        <a class="btn btn-dark" href="https://www.tinkoff.ru/rm/r_KHuFkumXhg.XxjEpipzAX/fqPmk35346" target="_blank">
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="100" height="100" rx="16" fill="#F7F7F7" stroke="#DDDDDD" stroke-width="2" />
+                                <circle cx="50" cy="50" r="24" fill="#FFDD2D" />
+                                <path d="M50 32C40 32 32 40 32 50C32 60 40 68 50 68C60 68 68 60 68 50" stroke="#1A1A2E" stroke-width="6" stroke-linecap="round" />
+                                <path d="M50 32C60 32 68 40 68 50" stroke="#1A1A2E" stroke-width="6" stroke-linecap="round" />
+                                <circle cx="50" cy="50" r="6" fill="#1A1A2E" />
+                            </svg>
+                            Т-Банк
+                        </a>
+                        <a class="btn btn-dark" href="https://vk.ru/away.php?to=https%3A%2F%2Fc2c.cbrpay.ru%2FAS1I004HVVL6RIOF95BOJR6LMDUDGOJ2&utf=1" target="_blank">
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="100" height="100" rx="16" fill="#1E3A6F" />
+                                <path d="M50 20L80 40L80 80L50 60L20 80L20 40L50 20Z" fill="white" />
+                                <path d="M50 20L20 40L20 80L50 60L80 80" stroke="#FFD700" stroke-width="4" stroke-linejoin="round" />
+                                <circle cx="50" cy="60" r="14" fill="#FFD700" />
+                                <path d="M46 60L49 63L54 57" stroke="#1E3A6F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            СБП
+                        </a>
+                    </div>
+
+                    <!-- Кнопка "Не удалось оплатить?" -->
+                    <div style="margin-top: 20px; text-align: center;">
+                        <button class="btn-help" onclick="openPaymentHelp()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 8v4M12 16h.01"/>
+                            </svg>
+                            Не удалось оплатить?
+                        </button>
+                    </div>
+
+                    <div class="telegram-check-block">
+                        <h3 style="font-family:'Inter',sans-serif; margin-bottom:12px; text-align:center; display:flex; align-items:center; justify-content:center; gap:10px;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2" y="2" width="20" height="20" rx="6" fill="#d63031" stroke="#b52a2a" stroke-width="1.5" />
+                                <path d="M7 12L10 15L17 8" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <circle cx="18" cy="6" r="1.5" fill="#E53935" />
+                            </svg>
+                            Отправьте чек для получения доступа
+                        </h3>
+
+                        <div class="info-message" style="display:flex; align-items:center; gap:12px;">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+                                <circle cx="12" cy="12" r="10" fill="#E53935" opacity="0.15" stroke="#E53935" stroke-width="2" />
+                                <path d="M12 8V12M12 16H12.01" stroke="#E53935" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4Z" stroke="#E53935" stroke-width="1.5" />
+                            </svg>
+                            <p style="margin-bottom:0; font-weight:500; color:var(--ink);">
+                                <strong>Важно:</strong> После оплаты отправьте чек, и мы пришлём вам
+                                <strong>логин и пароль</strong> для входа в курс. Без чека доступ не будет предоставлен.
+                            </p>
+                        </div>
+
+                        <div class="btn-wrap">
+                            <a href="https://t.me/bkutilov" target="_blank" class="btn-telegram">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:8px;">
+                                    <path d="M21 12V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M16 3H21V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M11 13L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M21 3L16 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                Прикрепить чек
+                            </a>
+                        </div>
+
+                        <p class="hint-text">
+                            Нажмите на кнопку, чтобы перейти в Telegram. Прикрепите файл чека и отправьте сообщение.
+                        </p>
+                    </div>
+
+                    <button class="back" onclick="showLandingPage()" style="margin-top:20px;">← На главную</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ================================================================
+    СТРАНИЦА 3: ПОДДЕРЖКА
+    ================================================================ -->
+    <div id="supportPage" class="page">
+        <section class="support-page">
+            <div class="container">
+                <div class="support-card">
+                    <h1>
+                        <svg class="inline-ic" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        Поддержка
+                    </h1>
+                    <p style="margin-bottom:20px; color:var(--text);">Задайте ваш вопрос по курсу. Мы постараемся ответить в ближайшее время.</p>
+                    <form id="supportForm">
+                        <input type="text" id="supportTopic" placeholder="Тема" style="width:100%; padding:14px 20px; border-radius:60px; border:2px solid #eee; font-family:'Inter',sans-serif; font-size:1rem; outline:none; transition:.25s; margin-bottom:14px;" />
+                        <textarea id="supportMessage" placeholder="Опишите ваш вопрос подробнее..."></textarea>
+                        <button type="submit" class="btn btn-primary" style="width:100%; display:inline-flex; align-items:center; justify-content:center; gap:8px;">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                            Отправить
+                        </button>
+                    </form>
+                    <div id="supportSuccess" class="support-success">Ваше сообщение успешно отправлено! Наши специалисты свяжутся с вами в ближайшее время.</div>
+                    <button class="back" onclick="showMainPage()" style="margin-top:20px;">← Вернуться на главную</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ================================================================
+    СТРАНИЦА 4: УЧЕБНЫЙ БЛОК №1
+    ================================================================ -->
+    <div id="block1Page" class="page">
+        <div class="block-page">
+            <div class="container">
+
+                <div class="block-header">
+                    <div class="left">
+                        <button class="back-btn" onclick="showMainPage()">← На главную</button>
+                        <span class="block-number">Вебинар 1 из 3</span>
+                    </div>
+                    <div class="progress-wrap">
+                        <span class="progress-text" id="progressText1">0%</span>
+                        <div class="progress-bar">
+                            <div class="fill" id="progressFill1" style="width:0%;"></div>
+                        </div>
+                        <div class="lock-status">
+                            <span id="lockIcon1">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px; display:inline-block;">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
+                            </span>
+                            <span id="lockText1" class="locked">Заблокирован</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block-title-wrap">
+                    <h1>
+                        <svg class="inline-ic" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        Вебинар 1. Знакомство с платформой 1С:Предприятие
+                    </h1>
+                    <p class="desc">Архитектура системы, режимы запуска, клиентские приложения, создание информационной базы.</p>
+                </div>
+
+                <div class="goals">
+                    <div class="goal-card">
+                        <span class="icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <path d="M9 12l2 2 4-4"/>
+                            </svg>
+                        </span>
+                        <h3>Что такое 1С?</h3>
+                        <p>Платформа, конфигурация, информационная база — <span class="highlight">разбираем базовые понятия</span> без воды.</p>
+                    </div>
+                    <div class="goal-card">
+                        <span class="icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                        </span>
+                        <h3>Режимы запуска</h3>
+                        <p>Режим предприятия и конфигуратор. <span class="highlight">Зачем нужен каждый</span> и как переключаться.</p>
+                    </div>
+                    <div class="goal-card">
+                        <span class="icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="1" y="3" width="15" height="13" rx="2"/>
+                                <polyline points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                                <circle cx="5.5" cy="18" r="2.5"/>
+                                <circle cx="18.5" cy="18" r="2.5"/>
+                            </svg>
+                        </span>
+                        <h3>Первая информационная база</h3>
+                        <p>Создание и настройка ИБ. <span class="highlight">Пошаговый алгоритм</span> для начинающих.</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:16px; margin-bottom:16px; background:#191919; box-shadow: var(--shadow);">
+                        <video controls style="position:absolute; top:0; left:0; width:100%; height:100%; background:#191919;" poster="">
+                            <source src="https://kinescope.io/niFED4KGekJtjm5BG6uefo" type="video/mp4">
+                            Ваш браузер не поддерживает видео.
+                        </video>
+                    </div>
+
+                    <div>
+                        <p style="font-weight:600; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
+                            <svg class="inline-ic" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                            Материалы к вебинару:
+                        </p>
+                        <div class="pdf-btn-wrap">
+                            <button class="btn btn-primary" style="display:inline-flex; align-items:center; gap:8px;" onclick="window.open('https://disk.yandex.ru/i/ytO0ej7itB7EGA', '_blank')">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                                Открыть презентацию (PDF)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-block" id="testBlock1">
+                    <div class="test-info">
+                        <span style="font-size:1.4rem; color:var(--ink);">
+                            <svg class="inline-ic" viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></svg>
+                        </span>
+                        <span style="font-weight:700;">Проверка знаний</span>
+                        <span class="status pending" id="testStatus1">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px; display:inline-block; vertical-align:middle; margin-right:4px;">
+                                <path d="M6 22h12M6 2h12M12 22v-4M12 2v4M8 8l4 4 4-4M8 16l4-4 4 4"/>
+                                <path d="M6 8h12M6 16h12"/>
+                            </svg>
+                            Не пройден
+                        </span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openTest(1)" style="display:inline-flex; align-items:center; gap:8px;">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+                        Пройти тест
+                    </button>
+                </div>
+
+                <div class="next-block">
+                    <div class="info">
+                        <span class="lock-icon" id="nextLockIcon1">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                        </span>
+                        <span style="font-weight:700;">Перейти к следующему вебинару</span>
+                        <span class="hint" id="nextHint1">Для перехода к следующему вебинару пройдите тест</span>
+                    </div>
+                    <button class="btn btn-green" id="nextBtn1" onclick="goToNextWebinar(1)" disabled>
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        Перейти
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================
+    СТРАНИЦА 5: ТЕСТ
+    ================================================================ -->
+    <div id="testPage" class="page">
+        <div class="test-page">
+            <div class="container">
+                <div class="test-card">
+                    <h1 id="testTitle">
+                        <svg class="inline-ic" viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></svg>
+                        Проверка знаний по Вебинару 1
+                    </h1>
+                    <p class="test-desc" id="testDesc">Ответьте на 3 вопроса по материалу вебинара. Для перехода к следующему вебинару нужно ответить правильно на все вопросы.</p>
+
+                    <form id="testForm">
+                        <div id="testQuestions"></div>
+
+                        <div class="btn-wrap">
+                            <button type="submit" class="btn btn-primary" id="checkTestBtn">Проверить</button>
+                            <button type="button" class="btn-outline" onclick="closeTest()">← Вернуться к вебинару</button>
+                        </div>
+
+                        <div class="result" id="testResult"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================
+    СТРАНИЦА 6: ЛИЧНЫЙ КАБИНЕТ
+    ================================================================ -->
+    <div id="mainPage" class="page">
+        <nav class="topbar">
+            <div class="nav-inner">
+                <span class="logo">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="var(--yellow)"/></svg>
+                    1С — это просто
+                </span>
+                <button class="nav-tab active" onclick="showMainPage()">Главная</button>
+                <button class="nav-tab" onclick="openBlock(1)">Вебинар 1</button>
+                <button class="nav-tab" onclick="openBlock(2)">Вебинар 2</button>
+                <button class="nav-tab" onclick="openBlock(3)">Вебинар 3</button>
+                <button class="nav-tab" onclick="showSupportPage()">
+                    <svg class="inline-ic" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    Поддержка
+                </button>
+
+                <!-- ===== АВАТАР ===== -->
+                <div class="avatar-wrap" id="avatarWrap">
+                    <div class="avatar" id="avatarBtn">
+                        <svg viewBox="0 0 24 24" width="22" height="22">
+                            <path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/>
+                        </svg>
+                    </div>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <div class="user-name">User 12</div>
+                        <div class="user-status">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                            Оплачено
+                        </div>
+                        <div class="divider"></div>
+                        <button class="logout-btn" onclick="logout()">Выход</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="dash">
+            <div class="container">
+                <!-- ===== ДОБРО ПОЖАЛОВАТЬ ===== -->
+                <h2 class="welcome">Добро пожаловать, User 12!</h2>
+
+                <!-- ===== О КУРСЕ ===== -->
+                <section class="panel">
+                    <h2>
+                        <svg class="inline-ic" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        О курсе
+                    </h2>
+                    <div class="about-block">
+                        <p>Курс <strong>«1С — это просто»</strong> создан для тех, кто хочет с нуля освоить работу в самой популярной бухгалтерской системе России. Программа разработана практикующими экспертами с более чем <strong>10-летним стажем</strong> внедрения и настройки 1С на предприятиях малого и среднего бизнеса. Мы прошли путь от новичков до ведущих специалистов и знаем все подводные камни, которые встречаются на этом пути.</p>
+                        <p style="margin-top:12px;">Этот курс — не сухая теория. Это <strong>концентрированный опыт</strong>, который позволит вам сразу после обучения применять полученные знания на реальной работе. Вы перестанете бояться 1С и начнете уверенно выполнять свои профессиональные задачи.</p>
+                    </div>
+
+                    <p style="margin-top:16px;"><strong>Приобретая этот курс, вы сможете:</strong></p>
+                    <ul class="get-list">
+                        <li>Свободно ориентироваться в интерфейсе и структуре 1С:Предприятие 8.3.</li>
+                        <li>Самостоятельно создавать и настраивать информационные базы.</li>
+                        <li>Работать в режиме «Конфигуратор»: создавать справочники, документы, регистры и отчеты.</li>
+                        <li>Писать простые и эффективные запросы на встроенном языке 1С.</li>
+                        <li>Настраивать права доступа и разграничивать роли пользователей.</li>
+                        <li>Понимать основы бухгалтерского и налогового учета в 1С.</li>
+                        <li>Получить удостоверение о повышении квалификации, которое повысит вашу стоимость на рынке труда.</li>
+                    </ul>
+                    <p style="margin-top:12px;"><strong>Никакой воды. Только навыки, которые нужны работодателю.</strong> Вы получите не просто знания, а готовые инструменты для работы, которые можно применить сразу после первого занятия.</p>
+                </section>
+
+                <!-- ===== БЛОКИ ОБУЧЕНИЯ (СКРОЛЛ) ===== -->
+                <section class="panel">
+                    <h2>
+                        <svg class="inline-ic" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.664-.89l-.812-1.22A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+                        Блоки обучения
+                    </h2>
+
+                    <div class="scroll-wrapper">
+                        <button class="scroll-btn prev" id="scrollPrev">‹</button>
+
+                        <div class="scroll-container" id="scrollContainer">
+                            <div class="scroll-track" id="scrollTrack">
+                                <!-- Вебинар 1 -->
+                                <div class="scroll-slide" data-index="0">
+                                    <div class="block-card">
+                                        <h3>
+                                            <svg class="inline-ic" style="color:var(--primary);" viewBox="0 0 24 24"><path d="M12 2 2 12l10 10 10-10z"/></svg>
+                                            Вебинар 1. Знакомство с платформой
+                                        </h3>
+                                        <p>Архитектура, режимы запуска, создание информационной базы. Первые шаги в 1С.</p>
+                                        <button class="btn btn-primary" onclick="openBlock(1)">Перейти →</button>
+                                    </div>
+                                </div>
+
+                                <!-- Вебинар 2 -->
+                                <div class="scroll-slide" data-index="1">
+                                    <div class="block-card">
+                                        <h3>
+                                            <svg class="inline-ic" style="color:var(--primary);" viewBox="0 0 24 24"><path d="M12 2 2 12l10 10 10-10z"/></svg>
+                                            Вебинар 2. Конфигуратор и объекты метаданных
+                                        </h3>
+                                        <p>Создание справочников, документов, регистров. Настройка прав доступа и отчетов.</p>
+                                        <button class="btn btn-red" id="block2Btn" onclick="openBlock(2)">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px; height:16px; display:inline-block; vertical-align:middle; margin-right:4px;">
+                                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                            </svg>
+                                            Заблокирован
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Вебинар 3 -->
+                                <div class="scroll-slide" data-index="2">
+                                    <div class="block-card">
+                                        <h3>
+                                            <svg class="inline-ic" style="color:var(--primary);" viewBox="0 0 24 24"><path d="M12 2 2 12l10 10 10-10z"/></svg>
+                                            Вебинар 3. Практика и интеграция
+                                        </h3>
+                                        <p>Работа с CRM-решением, интеграция с внешними системами, финальные проекты и сертификация.</p>
+                                        <button class="btn btn-green" id="block3Btn" onclick="openBlock(3)">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px; height:16px; display:inline-block; vertical-align:middle; margin-right:4px;">
+                                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                            </svg>
+                                            Заблокирован
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Подарок -->
+                                <div class="scroll-slide" data-index="3">
+                                    <div class="block-card gift-card-scroll" id="giftCardScroll">
+                                        <h3>
+                                            <svg viewBox="0 0 100 100" style="width: 36px; height: 36px; display: inline-block; vertical-align: middle;">
+                                                <rect x="15" y="35" width="70" height="50" rx="4" fill="#d63031" />
+                                                <rect x="10" y="25" width="80" height="15" rx="3" fill="#b52a2a" />
+                                                <rect x="45" y="25" width="10" height="60" fill="#f5c842" />
+                                                <rect x="10" y="28" width="80" height="9" fill="#f5c842" />
+                                                <circle cx="50" cy="25" r="10" fill="#E6B800" />
+                                                <ellipse cx="40" cy="20" rx="12" ry="8" fill="#f5c842" transform="rotate(-30 40 20)" />
+                                                <ellipse cx="60" cy="20" rx="12" ry="8" fill="#f5c842" transform="rotate(30 60 20)" />
+                                                <animateTransform attributeName="transform" type="translate" values="0,0; 0,-6; 0,0; 0,-4; 0,0" dur="2s" repeatCount="indefinite" />
+                                                <circle cx="50" cy="25" r="10" fill="#E6B800">
+                                                    <animate attributeName="r" values="10;12;10" dur="1.5s" repeatCount="indefinite" />
+                                                    <animate attributeName="opacity" values="1;0.7;1" dur="1.5s" repeatCount="indefinite" />
+                                                </circle>
+                                                <circle cx="25" cy="20" r="2" fill="#f5c842">
+                                                    <animate attributeName="opacity" values="0;1;0" dur="1.2s" repeatCount="indefinite" begin="0s" />
+                                                    <animate attributeName="cy" values="20;10;20" dur="1.2s" repeatCount="indefinite" begin="0s" />
+                                                </circle>
+                                                <circle cx="75" cy="20" r="2" fill="#f5c842">
+                                                    <animate attributeName="opacity" values="0;1;0" dur="1.2s" repeatCount="indefinite" begin="0.4s" />
+                                                    <animate attributeName="cy" values="20;10;20" dur="1.2s" repeatCount="indefinite" begin="0.4s" />
+                                                </circle>
+                                                <circle cx="50" cy="10" r="2" fill="#f5c842">
+                                                    <animate attributeName="opacity" values="0;1;0" dur="1.2s" repeatCount="indefinite" begin="0.8s" />
+                                                    <animate attributeName="cy" values="10;5;10" dur="1.2s" repeatCount="indefinite" begin="0.8s" />
+                                                </circle>
+                                            </svg>
+                                            Подарок
+                                        </h3>
+                                        <p>Чек-лист «Карьерный старт в 1С» — пошаговый план действий для начинающего специалиста.</p>
+                                        <button class="btn btn-primary" id="giftBtnScroll" onclick="downloadGift()" disabled style="display:inline-flex; align-items:center; gap:8px;">
+                                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                                <polyline points="7 10 12 15 17 10"/>
+                                                <line x1="12" x2="12" y1="15" y2="3"/>
+                                            </svg>
+                                            Забрать подарок
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="scroll-btn next" id="scrollNext">›</button>
+                    </div>
+
+                    <div class="scroll-dots" id="scrollDots">
+                        <button class="dot active" data-index="0"></button>
+                        <button class="dot" data-index="1"></button>
+                        <button class="dot" data-index="2"></button>
+                        <button class="dot" data-index="3"></button>
+                    </div>
+                </section>
+
+                <!-- ===== КЛЮЧЕВЫЕ НАВЫКИ ===== -->
+                <section class="panel">
+                    <h2>
+                        <svg class="inline-ic" viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></svg>
+                        Ключевые навыки после курса
+                    </h2>
+                    <ul class="skill-list">
+                        <li>Уверенная работа в режиме «Предприятие» и «Конфигуратор»</li>
+                        <li>Создание и редактирование объектов метаданных (справочники, документы)</li>
+                        <li>Построение отчетов с помощью языка запросов</li>
+                        <li>Настройка прав доступа и ролей пользователей</li>
+                        <li>Понимание основ бухгалтерского учета в 1С</li>
+                        <li>Интеграция и обмен данными с внешними системами</li>
+                        <li>Решение типовых задач бухгалтера и специалиста по учету</li>
+                        <li>Готовность к самостоятельной работе на реальном предприятии</li>
+                    </ul>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- ================================================================
+    СТРАНИЦА 7: УЧЕБНЫЙ БЛОК №2
+    ================================================================ -->
+    <div id="block2Page" class="page">
+        <div class="block-page">
+            <div class="container">
+
+                <div class="block-header">
+                    <div class="left">
+                        <button class="back-btn" onclick="showMainPage()">← На главную</button>
+                        <span class="block-number">Вебинар 2 из 3</span>
+                    </div>
+                    <div class="progress-wrap">
+                        <span class="progress-text" id="progressText2">0%</span>
+                        <div class="progress-bar">
+                            <div class="fill" id="progressFill2" style="width:0%;"></div>
+                        </div>
+                        <div class="lock-status">
+                            <span id="lockIcon2">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px; display:inline-block;">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
+                            </span>
+                            <span id="lockText2" class="locked">Заблокирован</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block-title-wrap">
+                    <h1>
+                        <svg class="inline-ic" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        Вебинар 2. Конфигуратор и объекты метаданных
+                    </h1>
+                    <p class="desc">Создание справочников и документов, работа с регистрами, настройка прав доступа и построение отчетов.</p>
+                </div>
+
+                <div class="goals">
+                    <div class="goal-card">
+                        <span class="icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <path d="M9 12l2 2 4-4"/>
+                            </svg>
+                        </span>
+                        <h3>Дерево конфигурации</h3>
+                        <p>Изучаем структуру и основные объекты: <span class="highlight">справочники, документы, регистры</span>.</p>
+                    </div>
+                    <div class="goal-card">
+                        <span class="icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                        </span>
+                        <h3>Формы и права доступа</h3>
+                        <p>Создание управляемых форм. Настройка ролей и <span class="highlight">прав доступа</span> для пользователей.</p>
+                    </div>
+                    <div class="goal-card">
+                        <span class="icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="1" y="3" width="15" height="13" rx="2"/>
+                                <polyline points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                                <circle cx="5.5" cy="18" r="2.5"/>
+                                <circle cx="18.5" cy="18" r="2.5"/>
+                            </svg>
+                        </span>
+                        <h3>Запросы и отчеты</h3>
+                        <p>Основы языка запросов. <span class="highlight">Система компоновки данных</span> для создания отчетов.</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:16px; margin-bottom:16px; background:#191919; box-shadow: var(--shadow);">
+                        <video controls style="position:absolute; top:0; left:0; width:100%; height:100%; background:#191919;" poster="">
+                            <source src="https://kinescope.io/opd2Mz9akzCWQBjt5zvDoa" type="video/mp4">
+                            Ваш браузер не поддерживает видео.
+                        </video>
+                    </div>
+
+                    <div>
+                        <p style="font-weight:600; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
+                            <svg class="inline-ic" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                            Материалы к вебинару:
+                        </p>
+                        <div class="pdf-btn-wrap">
+                            <button class="btn btn-primary" style="display:inline-flex; align-items:center; gap:8px;" onclick="window.open('https://disk.yandex.ru/i/EuHMOMqdrOWZ4A', '_blank')">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                                Открыть презентацию (PDF)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-block" id="testBlock2">
+                    <div class="test-info">
+                        <span style="font-size:1.4rem; color:var(--ink);">
+                            <svg class="inline-ic" viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></svg>
+                        </span>
+                        <span style="font-weight:700;">Проверка знаний</span>
+                        <span class="status pending" id="testStatus2">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px; display:inline-block; vertical-align:middle; margin-right:4px;">
+                                <path d="M6 22h12M6 2h12M12 22v-4M12 2v4M8 8l4 4 4-4M8 16l4-4 4 4"/>
+                                <path d="M6 8h12M6 16h12"/>
+                            </svg>
+                            Не пройден
+                        </span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openTest(2)" style="display:inline-flex; align-items:center; gap:8px;">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+                        Пройти тест
+                    </button>
+                </div>
+
+                <div class="next-block">
+                    <div class="info">
+                        <span class="lock-icon" id="nextLockIcon2">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                        </span>
+                        <span style="font-weight:700;">Перейти к следующему вебинару</span>
+                        <span class="hint" id="nextHint2">Для перехода к следующему вебинару пройдите тест</span>
+                    </div>
+                    <button class="btn btn-green" id="nextBtn2" onclick="goToNextWebinar(2)" disabled>
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        Перейти
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================
+    СТРАНИЦА 8: УЧЕБНЫЙ БЛОК №3
+    ================================================================ -->
+    <div id="block3Page" class="page">
+        <div class="block-page">
+            <div class="container">
+
+                <div class="block-header">
+                    <div class="left">
+                        <button class="back-btn" onclick="showMainPage()">← На главную</button>
+                        <span class="block-number">Вебинар 3 из 3</span>
+                    </div>
+                    <div class="progress-wrap">
+                        <span class="progress-text" id="progressText3">0%</span>
+                        <div class="progress-bar">
+                            <div class="fill" id="progressFill3" style="width:0%;"></div>
+                        </div>
+                        <div class="lock-status">
+                            <span id="lockIcon3">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px; display:inline-block;">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
+                            </span>
+                            <span id="lockText3" class="locked">Заблокирован</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block-title-wrap">
+                    <h1>
+                        <svg class="inline-ic" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        Вебинар 3. Практика и интеграция
+                    </h1>
+                    <p class="desc">Работа с 1С:CRM, интеграция с бухгалтерией, загрузка данных из Excel, финальный проект и сертификация.</p>
+                </div>
+
+                <div class="goals">
+                    <div class="goal-card">
+                        <span class="icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <path d="M9 12l2 2 4-4"/>
+                            </svg>
+                        </span>
+                        <h3>1С:CRM СТАНДАРТ</h3>
+                        <p>Настройка управления продажами, клиентской базой и <span class="highlight">воронкой продаж</span>.</p>
+                    </div>
+                    <div class="goal-card">
+                        <span class="icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                        </span>
+                        <h3>Интеграция</h3>
+                        <p>Обмен данными с 1С:Бухгалтерия 8. <span class="highlight">Загрузка контрагентов и товаров</span> из внешних файлов.</p>
+                    </div>
+                    <div class="goal-card">
+                        <span class="icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="1" y="3" width="15" height="13" rx="2"/>
+                                <polyline points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                                <circle cx="5.5" cy="18" r="2.5"/>
+                                <circle cx="18.5" cy="18" r="2.5"/>
+                            </svg>
+                        </span>
+                        <h3>Финальный проект</h3>
+                        <p>Решение комплексной задачи от А до Я. <span class="highlight">Подготовка к сертификации</span>.</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:16px; margin-bottom:16px; background:#191919; box-shadow: var(--shadow);">
+                        <video controls style="position:absolute; top:0; left:0; width:100%; height:100%; background:#191919;" poster="">
+                            <source src="https://kinescope.io/jDjBpSEJmKTjSLT93ec6Wo" type="video/mp4">
+                            Ваш браузер не поддерживает видео.
+                        </video>
+                    </div>
+
+                    <div>
+                        <p style="font-weight:600; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
+                            <svg class="inline-ic" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                            Материалы к вебинару:
+                        </p>
+                        <div class="pdf-btn-wrap">
+                            <button class="btn btn-primary" style="display:inline-flex; align-items:center; gap:8px;" onclick="window.open('https://disk.yandex.ru/i/8jN5b3R-6GZJYA', '_blank')">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                                Открыть презентацию (PDF)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-block" id="testBlock3">
+                    <div class="test-info">
+                        <span style="font-size:1.4rem; color:var(--ink);">
+                            <svg class="inline-ic" viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></svg>
+                        </span>
+                        <span style="font-weight:700;">Проверка знаний</span>
+                        <span class="status pending" id="testStatus3">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px; display:inline-block; vertical-align:middle; margin-right:4px;">
+                                <path d="M6 22h12M6 2h12M12 22v-4M12 2v4M8 8l4 4 4-4M8 16l4-4 4 4"/>
+                                <path d="M6 8h12M6 16h12"/>
+                            </svg>
+                            Не пройден
+                        </span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openTest(3)" style="display:inline-flex; align-items:center; gap:8px;">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+                        Пройти тест
+                    </button>
+                </div>
+
+                <!-- Для 3-го вебинара нет кнопки "Перейти к следующему", только "На главную" -->
+                <div class="next-block" style="justify-content:center;">
+                    <button class="btn btn-primary" onclick="showMainPage()" style="display:inline-flex; align-items:center; gap:8px;">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        Вернуться на главную
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================
+    МОДАЛЬНОЕ ОКНО ПОМОЩИ С ОПЛАТОЙ
+    ================================================================ -->
+    <div class="modal-overlay" id="paymentHelpModal">
+        <div class="modal-window">
+            <button class="modal-close" id="modalCloseBtn" aria-label="Закрыть">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+
+            <div class="modal-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 8v4M12 16h.01"/>
+                </svg>
+            </div>
+
+            <h2 class="modal-title">Не удалось оплатить?</h2>
+            <p class="modal-subtitle">Мы поможем решить проблему</p>
+
+            <div class="modal-divider"></div>
+
+            <div class="modal-method">
+                <div class="method-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                        <line x1="1" y1="10" x2="23" y2="10"/>
+                    </svg>
+                </div>
+                <div class="method-content">
+                    <div class="method-label">Перевод по СБП</div>
+                    <div class="method-details">
+                        <span class="method-phone">+7 (914) 602-75-15</span>
+                        <span class="method-recipient">Получатель: Богдан Аркадьевич К.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <div class="modal-steps">
+                <div class="step-item">
+                    <span class="step-number">1</span>
+                    <span class="step-text">Переведите сумму по номеру телефона</span>
+                </div>
+                <div class="step-item">
+                    <span class="step-number">2</span>
+                    <span class="step-text">Сохраните чек об оплате</span>
+                </div>
+                <div class="step-item">
+                    <span class="step-number">3</span>
+                    <span class="step-text">Нажмите «Прикрепить чек» и отправьте его нам</span>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <a href="https://t.me/bkutilov" target="_blank" class="modal-btn primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H12"/>
+                        <path d="M16 3H21V8"/>
+                        <path d="M11 13L21 3"/>
+                        <path d="M21 3L16 8"/>
+                    </svg>
+                    Прикрепить чек
+                </a>
+                <button class="modal-btn secondary" onclick="closePaymentHelp()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6L6 18"/>
+                        <path d="M6 6L18 18"/>
+                    </svg>
+                    Закрыть
+                </button>
+            </div>
+
+            <p class="modal-footer">
+                Если возникли вопросы, свяжитесь с администратором по номеру
+                <strong>+7 (914) 602-75-15</strong>
+            </p>
+        </div>
+    </div>
+
+    <!-- ================================================================
+    JAVASCRIPT
+    ================================================================ -->
+    <script>
+        // ===== НАСТРОЙКИ ВЕБИНАРОВ =====
+        const WEBINARS = {
+            1: {
+                title: 'Вебинар 1. Знакомство с платформой 1С:Предприятие',
+                video: 'https://kinescope.io/niFED4KGekJtjm5BG6uefo',
+                pdf: 'https://disk.yandex.ru/i/ytO0ej7itB7EGA',
+                blockKey: '1c_simple_course_block1',
+                nextWebinar: 2
+            },
+            2: {
+                title: 'Вебинар 2. Конфигуратор и объекты метаданных',
+                video: 'https://kinescope.io/opd2Mz9akzCWQBjt5zvDoa',
+                pdf: 'https://disk.yandex.ru/i/EuHMOMqdrOWZ4A',
+                blockKey: '1c_simple_course_block2',
+                nextWebinar: 3
+            },
+            3: {
+                title: 'Вебинар 3. Практика и интеграция',
+                video: 'https://kinescope.io/jDjBpSEJmKTjSLT93ec6Wo',
+                pdf: 'https://disk.yandex.ru/i/8jN5b3R-6GZJYA',
+                blockKey: '1c_simple_course_block3',
+                nextWebinar: null
+            }
+        };
+
+        // ===== УПРАВЛЕНИЕ СТРАНИЦАМИ =====
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function showLandingPage() { showPage('landingPage'); }
+        function showPaymentPage() { showPage('paymentPage'); }
+        function showSupportPage() { showPage('supportPage'); }
+        function showMainPage() { showPage('mainPage'); updateGiftBlock(); }
+
+        function openBlock(num) {
+            // Проверяем доступность блока
+            if (num > 1) {
+                const prevStatus = JSON.parse(localStorage.getItem(WEBINARS[num-1].blockKey) || '{"testPassed":false}');
+                if (!prevStatus.testPassed) {
+                    alert('Сначала пройдите тест предыдущего вебинара!');
+                    return;
+                }
+            }
+            // Проверяем, есть ли страница для этого блока
+            const page = document.getElementById('block' + num + 'Page');
+            if (page) {
+                showPage('block' + num + 'Page');
+                updateBlockUI(num);
+            } else {
+                alert('Страница вебинара ' + num + ' пока не создана.');
+            }
+        }
+
+        function goToNextWebinar(currentNum) {
+            const webinar = WEBINARS[currentNum];
+            if (webinar.nextWebinar) {
+                openBlock(webinar.nextWebinar);
+            } else {
+                alert('Это последний вебинар!');
+            }
+        }
+
+        function openTest(num) {
+            const webinar = WEBINARS[num];
+            if (!webinar) return;
+
+            document.getElementById('testTitle').textContent = 'Проверка знаний по ' + webinar.title;
+            document.getElementById('testDesc').textContent = 'Ответьте на 3 вопроса по материалу вебинара. Для перехода к следующему вебинару нужно ответить правильно на все вопросы.';
+
+            // Вопросы для каждого вебинара
+            const questions = {
+                1: [
+                    { q: '1. Что такое платформа 1С:Предприятие?', options: ['Это программа для расчета зарплаты', 'Это среда разработки и исполнения прикладных решений', 'Это операционная система'], correct: 1 },
+                    { q: '2. Для чего предназначен режим "Конфигуратор"?', options: ['Для просмотра отчетов', 'Для разработки и изменения конфигурации', 'Для работы с документами'], correct: 1 },
+                    { q: '3. Что такое информационная база (ИБ) в 1С?', options: ['Это файл с данными для одного пользователя', 'Это совокупность данных, используемых прикладным решением', 'Это база данных на SQL'], correct: 1 }
+                ],
+                2: [
+                    { q: '1. Какой объект метаданных используется для хранения условно-постоянной информации (например, список товаров)?', options: ['Документ', 'Справочник', 'Регистр сведений'], correct: 1 },
+                    { q: '2. Какой объект предназначен для хранения информации о хозяйственных операциях (изменяет остатки)?', options: ['Документ', 'Отчет', 'Обработка'], correct: 0 },
+                    { q: '3. Где в 1С настраиваются права доступа пользователей?', options: ['В справочнике "Пользователи"', 'В метаданных "Роли"', 'В настройках "Администрирование"'], correct: 1 }
+                ],
+                3: [
+                    { q: '1. Для чего предназначено CRM-решение в 1С?', options: ['Для бухгалтерского учета', 'Для управления взаимоотношениями с клиентами', 'Для складского учета'], correct: 1 },
+                    { q: '2. Как в 1С обычно загружаются данные из внешних файлов (например, Excel)?', options: ['Ручным вводом', 'Через внешние обработки или механизм обмена данными', 'Импорт недоступен'], correct: 1 },
+                    { q: '3. Что подтверждает удостоверение о повышении квалификации?', options: ['Что вы прошли обучение по 1С', 'Что вы умеете программировать на Python', 'Что вы являетесь сертифицированным преподавателем'], correct: 0 }
+                ]
+            };
+
+            const container = document.getElementById('testQuestions');
+            container.innerHTML = '';
+            (questions[num] || []).forEach((q, index) => {
+                const div = document.createElement('div');
+                div.className = 'question';
+                div.innerHTML = `
+                    <p class="q-text">${q.q}</p>
+                    <div class="options">
+                        ${q.options.map((opt, i) => `
+                            <label>
+                                <input type="radio" name="q${index+1}" value="${i}" />
+                                ${opt}
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            document.getElementById('testForm').dataset.webinar = num;
+            document.getElementById('testResult').className = 'result';
+            document.getElementById('testResult').textContent = '';
+            document.getElementById('checkTestBtn').disabled = false;
+
+            showPage('testPage');
+        }
+
+        function closeTest() {
+            const webinarNum = parseInt(document.getElementById('testForm').dataset.webinar);
+            if (webinarNum) {
+                showPage('block' + webinarNum + 'Page');
+                updateBlockUI(webinarNum);
+            } else {
+                showMainPage();
+            }
+        }
+
+        // ===== ЛОГИКА ТЕСТА =====
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const webinarNum = parseInt(this.dataset.webinar);
+            const webinar = WEBINARS[webinarNum];
+            if (!webinar) return;
+
+            const questions = {
+                1: [
+                    { correct: 1 },
+                    { correct: 1 },
+                    { correct: 1 }
+                ],
+                2: [
+                    { correct: 1 },
+                    { correct: 0 },
+                    { correct: 1 }
+                ],
+                3: [
+                    { correct: 1 },
+                    { correct: 1 },
+                    { correct: 0 }
+                ]
+            };
+
+            const answers = [];
+            let allAnswered = true;
+            questions[webinarNum].forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index+1}"]:checked`);
+                if (!selected) { allAnswered = false; return; }
+                answers.push(parseInt(selected.value));
+            });
+
+            if (!allAnswered) { alert('Ответьте на все вопросы!'); return; }
+
+            const result = document.getElementById('testResult');
+            document.querySelectorAll('.question').forEach((q, index) => {
+                const labels = q.querySelectorAll('.options label');
+                labels.forEach(label => {
+                    label.classList.remove('correct', 'wrong', 'disabled');
+                    const input = label.querySelector('input');
+                    if (parseInt(input.value) === questions[webinarNum][index].correct) {
+                        label.classList.add('correct');
+                    } else if (input.checked && parseInt(input.value) !== questions[webinarNum][index].correct) {
+                        label.classList.add('wrong');
+                    }
+                    label.classList.add('disabled');
+                });
+            });
+
+            const isPassed = answers.every((a, i) => a === questions[webinarNum][i].correct);
+
+            if (isPassed) {
+                result.textContent = '✅ Отлично! Все ответы правильные. Вебинар пройден!';
+                result.className = 'result passed';
+                localStorage.setItem(webinar.blockKey, JSON.stringify({ testPassed: true }));
+                document.getElementById('checkTestBtn').disabled = true;
+
+                setTimeout(() => {
+                    updateBlockUI(webinarNum);
+                    updateGiftBlock();
+                    closeTest();
+                }, 1500);
+            } else {
+                result.textContent = '❌ Есть ошибки. Попробуйте ещё раз.';
+                result.className = 'result failed';
+                setTimeout(() => {
+                    document.querySelectorAll('.question .options label').forEach(label => {
+                        label.classList.remove('correct', 'wrong', 'disabled');
+                    });
+                    result.className = 'result';
+                    result.textContent = '';
+                    document.querySelectorAll('input[type="radio"]').forEach(input => { input.checked = false; });
+                }, 2500);
+            }
+        });
+
+        // ===== ОБНОВЛЕНИЕ UI БЛОКА =====
+        function updateBlockUI(num) {
+            const webinar = WEBINARS[num];
+            if (!webinar) return;
+
+            const status = JSON.parse(localStorage.getItem(webinar.blockKey) || '{"testPassed":false}');
+
+            const testStatus = document.getElementById('testStatus' + num);
+            const nextBtn = document.getElementById('nextBtn' + num);
+            const nextHint = document.getElementById('nextHint' + num);
+            const nextLockIcon = document.getElementById('nextLockIcon' + num);
+            const lockIcon = document.getElementById('lockIcon' + num);
+            const lockText = document.getElementById('lockText' + num);
+            const progressFill = document.getElementById('progressFill' + num);
+            const progressText = document.getElementById('progressText' + num);
+
+            if (!testStatus) return;
+
+            if (status.testPassed) {
+                testStatus.textContent = '✅ Пройден';
+                testStatus.className = 'status passed';
+                if (nextBtn) {
+                    nextBtn.disabled = false;
+                }
+                if (nextHint) {
+                    nextHint.textContent = 'Тест пройден! Можете переходить к следующему вебинару.';
+                }
+                if (nextLockIcon) {
+                    nextLockIcon.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            <circle cx="12" cy="17" r="1.5"/>
+                            <line x1="12" y1="14" x2="12" y2="12"/>
+                        </svg>
+                    `;
+                }
+                if (lockIcon) {
+                    lockIcon.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px; display:inline-block;">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            <circle cx="12" cy="17" r="1.5"/>
+                            <line x1="12" y1="14" x2="12" y2="12"/>
+                        </svg>
+                    `;
+                }
+                if (lockText) {
+                    lockText.textContent = 'Доступен';
+                    lockText.className = 'unlocked';
+                }
+                if (progressFill) {
+                    progressFill.style.width = '100%';
+                }
+                if (progressText) {
+                    progressText.textContent = '100%';
+                }
+
+                // Обновляем кнопку на главной
+                if (num === 2) {
+                    const btn2 = document.getElementById('block2Btn');
+                    if (btn2) {
+                        btn2.innerHTML = 'Перейти →';
+                        btn2.className = 'btn btn-primary';
+                        btn2.onclick = function() { openBlock(2); };
+                    }
+                }
+                if (num === 3) {
+                    const btn3 = document.getElementById('block3Btn');
+                    if (btn3) {
+                        btn3.innerHTML = 'Перейти →';
+                        btn3.className = 'btn btn-primary';
+                        btn3.onclick = function() { openBlock(3); };
+                    }
+                }
+
+            } else {
+                testStatus.innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px; display:inline-block; vertical-align:middle; margin-right:4px;">
+                        <path d="M6 22h12M6 2h12M12 22v-4M12 2v4M8 8l4 4 4-4M8 16l4-4 4 4"/>
+                        <path d="M6 8h12M6 16h12"/>
+                    </svg>
+                    Не пройден
+                `;
+                testStatus.className = 'status pending';
+                if (nextBtn) {
+                    nextBtn.disabled = true;
+                }
+                if (nextHint) {
+                    nextHint.textContent = 'Для перехода к следующему вебинару пройдите тест';
+                }
+                if (nextLockIcon) {
+                    nextLockIcon.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    `;
+                }
+                if (lockIcon) {
+                    lockIcon.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px; display:inline-block;">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    `;
+                }
+                if (lockText) {
+                    lockText.textContent = 'Заблокирован';
+                    lockText.className = 'locked';
+                }
+                if (progressFill) {
+                    progressFill.style.width = '0%';
+                }
+                if (progressText) {
+                    progressText.textContent = '0%';
+                }
+            }
+
+            updateGiftBlock();
+        }
+
+        // ===== ПОДАРОК =====
+        function isAllTestsPassed() {
+            const status1 = JSON.parse(localStorage.getItem(WEBINARS[1].blockKey) || '{"testPassed":false}');
+            const status2 = JSON.parse(localStorage.getItem(WEBINARS[2].blockKey) || '{"testPassed":false}');
+            const status3 = JSON.parse(localStorage.getItem(WEBINARS[3].blockKey) || '{"testPassed":false}');
+            return status1.testPassed && status2.testPassed && status3.testPassed;
+        }
+
+        function updateGiftBlock() {
+            const giftLock = document.getElementById('giftLock');
+            const giftBtn = document.getElementById('giftBtn');
+            const giftBtnScroll = document.getElementById('giftBtnScroll');
+
+            const allPassed = isAllTestsPassed();
+
+            // Обновляем основной подарок
+            if (allPassed) {
+                if (giftLock) {
+                    giftLock.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:28px; height:28px; display:block; color:var(--green);">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            <circle cx="12" cy="17" r="1.5"/>
+                            <line x1="12" y1="14" x2="12" y2="12"/>
+                        </svg>
+                    `;
+                }
+                if (giftBtn) {
+                    giftBtn.disabled = false;
+                    giftBtn.style.opacity = '1';
+                    giftBtn.style.cursor = 'pointer';
+                }
+                if (giftBtnScroll) {
+                    giftBtnScroll.disabled = false;
+                    giftBtnScroll.style.opacity = '1';
+                    giftBtnScroll.style.cursor = 'pointer';
+                }
+            } else {
+                if (giftLock) {
+                    giftLock.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:28px; height:28px; display:block; color:var(--red);">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    `;
+                }
+                if (giftBtn) {
+                    giftBtn.disabled = true;
+                    giftBtn.style.opacity = '0.5';
+                    giftBtn.style.cursor = 'not-allowed';
+                }
+                if (giftBtnScroll) {
+                    giftBtnScroll.disabled = true;
+                    giftBtnScroll.style.opacity = '0.5';
+                    giftBtnScroll.style.cursor = 'not-allowed';
+                }
+            }
+        }
+
+        function downloadGift() {
+            window.open('https://disk.yandex.ru/i/URxq1T8YjQb7bg', '_blank');
+        }
+
+        // ===== АВТОРИЗАЦИЯ =====
+        const LOGIN = 'user12';
+        const PASSWORD = '1C12';
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const login = document.getElementById('loginInput').value.trim();
+            const password = document.getElementById('passwordInput').value.trim();
+            const errorEl = document.getElementById('loginError');
+            if (login === LOGIN && password === PASSWORD) {
+                errorEl.textContent = '';
+                localStorage.setItem('isLoggedIn', 'true');
+                showMainPage();
+                [1, 2, 3].forEach(num => updateBlockUI(num));
+                updateGiftBlock();
+            } else {
+                errorEl.textContent = '❌ Неверный логин или пароль.';
+            }
+        });
+
+        function logout() {
+            if (confirm('Вы уверены, что хотите выйти?')) {
+                localStorage.removeItem('isLoggedIn');
+                showLandingPage();
+                document.getElementById('loginInput').value = '';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('loginError').textContent = '';
+                document.getElementById('dropdownMenu').classList.remove('open');
+            }
+        }
+
+        // ===== АВАТАР =====
+        document.getElementById('avatarBtn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('dropdownMenu').classList.toggle('open');
+        });
+
+        document.addEventListener('click', function(e) {
+            const wrap = document.getElementById('avatarWrap');
+            const menu = document.getElementById('dropdownMenu');
+            if (wrap && !wrap.contains(e.target)) {
+                menu.classList.remove('open');
+            }
+        });
+
+        // ===== ПОДДЕРЖКА =====
+        document.getElementById('supportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const topic = document.getElementById('supportTopic').value.trim();
+            const message = document.getElementById('supportMessage').value.trim();
+            if (!topic || !message) { alert('Пожалуйста, заполните оба поля.'); return; }
+            document.getElementById('supportSuccess').style.display = 'block';
+            this.reset();
+            setTimeout(() => { document.getElementById('supportSuccess').style.display = 'none'; }, 7000);
+        });
+
+        // ===== МОДАЛЬНОЕ ОКНО ПОМОЩИ С ОПЛАТОЙ =====
+        function openPaymentHelp() {
+            const modal = document.getElementById('paymentHelpModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePaymentHelp() {
+            const modal = document.getElementById('paymentHelpModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Закрытие по клику на оверлей
+        document.getElementById('paymentHelpModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePaymentHelp();
+            }
+        });
+
+        // Закрытие по Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePaymentHelp();
+            }
+        });
+
+        // Закрытие по кнопке "Закрыть"
+        document.getElementById('modalCloseBtn').addEventListener('click', closePaymentHelp);
+
+        // ===== ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ =====
+        (function() {
+            var container = document.getElementById('scrollContainer');
+            var track = document.getElementById('scrollTrack');
+            var slides = track.querySelectorAll('.scroll-slide');
+            var dots = document.querySelectorAll('.dot');
+            var prevBtn = document.getElementById('scrollPrev');
+            var nextBtn = document.getElementById('scrollNext');
+
+            if (!container || !track || slides.length === 0) {
+                console.warn('Скролл: элементы не найдены');
+                return;
+            }
+
+            var currentIndex = 0;
+            var slideWidth = 0;
+
+            function getSlideWidth() {
+                var containerWidth = container.offsetWidth - 20;
+                var gap = 24;
+                var count = 3;
+                if (window.innerWidth < 600) count = 1.2;
+                else if (window.innerWidth < 860) count = 2.1;
+                else count = 3.2;
+                return (containerWidth - (count - 1) * gap) / count + gap;
+            }
+
+            function getSlidesPerView() {
+                if (window.innerWidth < 600) return 1.2;
+                if (window.innerWidth < 860) return 2.1;
+                return 3.2;
+            }
+
+            function scrollTo(index) {
+                var maxIndex = Math.max(0, slides.length - Math.ceil(getSlidesPerView()));
+                currentIndex = Math.min(Math.max(0, index), maxIndex);
+                slideWidth = getSlideWidth();
+                container.scrollLeft = currentIndex * slideWidth;
+
+                // Обновляем точки
+                dots.forEach(function(dot, i) {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+
+                // Обновляем стрелки
+                var maxIdx = Math.max(0, slides.length - Math.ceil(getSlidesPerView()));
+                prevBtn.style.display = currentIndex === 0 ? 'none' : 'flex';
+                nextBtn.style.display = currentIndex >= maxIdx ? 'none' : 'flex';
+            }
+
+            // Обновляем точки при скролле
+            container.addEventListener('scroll', function() {
+                var scrollLeft = container.scrollLeft;
+                var newIndex = Math.round(scrollLeft / slideWidth);
+                if (newIndex !== currentIndex) {
+                    var maxIndex = Math.max(0, slides.length - Math.ceil(getSlidesPerView()));
+                    currentIndex = Math.min(Math.max(0, newIndex), maxIndex);
+                    dots.forEach(function(dot, i) {
+                        dot.classList.toggle('active', i === currentIndex);
+                    });
+                    var maxIdx = Math.max(0, slides.length - Math.ceil(getSlidesPerView()));
+                    prevBtn.style.display = currentIndex === 0 ? 'none' : 'flex';
+                    nextBtn.style.display = currentIndex >= maxIdx ? 'none' : 'flex';
+                }
+            });
+
+            // События кнопок
+            prevBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                scrollTo(currentIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                scrollTo(currentIndex + 1);
+            });
+
+            // События точек
+            dots.forEach(function(dot, index) {
+                dot.addEventListener('click', function() {
+                    scrollTo(index);
+                });
+            });
+
+            // Свайп
+            var startX = 0;
+            var isDragging = false;
+
+            container.addEventListener('touchstart', function(e) {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            }, { passive: true });
+
+            container.addEventListener('touchmove', function(e) {
+                if (!isDragging) return;
+                var diff = startX - e.touches[0].clientX;
+                if (Math.abs(diff) > 40) {
+                    if (diff > 0) scrollTo(currentIndex + 1);
+                    else scrollTo(currentIndex - 1);
+                    isDragging = false;
+                }
+            }, { passive: true });
+
+            container.addEventListener('touchend', function() {
+                isDragging = false;
+            }, { passive: true });
+
+            // Обновление при resize
+            var resizeTimeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(function() {
+                    slideWidth = getSlideWidth();
+                    scrollTo(currentIndex);
+                }, 200);
+            });
+
+            // Запуск
+            setTimeout(function() {
+                slideWidth = getSlideWidth();
+                scrollTo(0);
+            }, 300);
+
+            console.log('Скролл инициализирован, слайдов: ' + slides.length);
+        })();
+
+        // ===== ИНИЦИАЛИЗАЦИЯ =====
+        (function() {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                showMainPage();
+                [1, 2, 3].forEach(num => updateBlockUI(num));
+                updateGiftBlock();
+            } else {
+                showLandingPage();
+            }
+        })();
+    </script>
+
+</body>
+</html>
